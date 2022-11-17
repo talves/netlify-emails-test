@@ -34,7 +34,8 @@ const handler: Handler = async function (event) {
       },
     }),
   });
-console.log("response:", response.ok, response.status, response.statusText)
+  const responseText = await response.text();
+console.log("response:", response.ok, response.status, response.statusText, responseText)
   return response.ok ? {
     statusCode: 200,
     body: JSON.stringify("Subscribe email sent!"),
