@@ -20,7 +20,7 @@ const handler: Handler = async function (event) {
 
   //automatically generated snippet from the email preview
   //sends a request to an email handler for a subscribed email
-  const response = await fetch(`${process.env.URL}/.netlify/functions/emails/subscribed`, {
+  const response: Response = await fetch(`${process.env.URL}/.netlify/functions/emails/subscribed`, {
     headers: {
       "netlify-emails-secret": process.env.NETLIFY_EMAILS_SECRET as string,
     },
@@ -34,16 +34,14 @@ const handler: Handler = async function (event) {
         email: requestBody.subscriberEmail,
       },
     }),
-  }).catch((reason) => {
-    return {
-      statusCode: 400,
-      body: JSON.stringify(reason.message),
-    };
   });
-console.log("response:", response)
-  return {
+console.log("response:", response.ok, response.status, response.statusText)
+  return response.ok ? {
     statusCode: 200,
     body: JSON.stringify("Subscribe email sent!"),
+  } : {
+    statusCode: 400,
+    body: JSON.stringify(`Error: ${response.statusText}`),
   };
 };
 
