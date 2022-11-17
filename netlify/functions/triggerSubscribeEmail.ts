@@ -3,9 +3,8 @@ import fetch from "node-fetch";
 
 const handler: Handler = async function (event) {
   console.log("event.body:", event.body);
-  console.log("someValue:", process.env.NETLIFY_EMAILS_SECRET);
 
-  if (event.body === null) {
+  if (event.body === null || event.body==="") {
     return {
       statusCode: 400,
       body: JSON.stringify("Payload required"),
