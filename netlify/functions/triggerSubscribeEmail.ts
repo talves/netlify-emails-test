@@ -2,6 +2,9 @@ import { Handler } from "@netlify/functions";
 import fetch from "node-fetch";
 
 const handler: Handler = async function (event) {
+console.log("event.body:", event.body);
+console.log("someValue:", process.env.NETLIFY_EMAILS_SECRET);
+
   if (event.body === null) {
     return {
       statusCode: 400,
