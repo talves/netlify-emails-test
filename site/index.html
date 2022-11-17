@@ -1,0 +1,34 @@
+<script>
+    const handleSubmit = async () => {
+        event.preventDefault();
+        const target = document.getElementById('form');
+        const name = document.getElementById('name')
+        const email = document.getElementById('email')
+        console.log(name, email)
+        const data = {
+            subscriberName: name.value,
+            subscriberEmail: email.value,
+        };
+        alert(JSON.stringify(data,null,2))
+        //call to the Netlify Function you created
+        return await fetch("/.netlify/functions/triggerSubscribeEmail", {
+            method: "POST",
+            body: JSON.stringify({
+                subscriberName: data.subscriberName,
+                subscriberEmail: data.subscriberEmail,
+                inviteeEmail: "tony@3alves.com",
+            }),
+        }).catch(reason => {alert(reason.message); return false});
+    };
+</script>
+<h1>Hello Email World!</h1>
+
+<div className="subscribe-form-container">
+    <form id="form" onsubmit="handleSubmit()">
+        <label htmlFor="name">Name</label>
+        <input type="text" id="name" name="name" required />
+        <label htmlFor="email">Email</label>
+        <input type="text" id="email" name="email" required />
+        <button type="submit">Subscribe</button>
+    </form>
+</div>

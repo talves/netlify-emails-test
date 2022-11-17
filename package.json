@@ -1,0 +1,11 @@
+{
+  "name": "netlify-emails-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": "true",
+  "license": "MIT",
+  "devDependencies": {
+    "@netlify/functions": "^1.3.0",
+    "@talves/netlify-email-plugin": "^0.0.1"
+  }
+}

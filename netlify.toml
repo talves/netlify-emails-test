@@ -1,0 +1,6 @@
+[build]
+    command="echo \"No build needed (static)\""
+    publish="site"
+    
+[[plugins]]
+    package="@talves/netlify-email-plugin"
