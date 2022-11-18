@@ -35,14 +35,27 @@
             };
             alert(JSON.stringify(data, null, 2))
             //call to the Netlify Function you created
-            return await fetch("/.netlify/functions/triggerSubscribeEmail", {
+            await fetch("/.netlify/functions/triggerSubscribeEmail", {
                 method: "POST",
                 body: JSON.stringify({
                     subscriberName: data.subscriberName,
                     subscriberEmail: data.subscriberEmail,
                     inviteeEmail: "tony@3alves.com",
                 }),
+            }).then(res => {
+                console.log("good", res)
+                const responseMessage = document.getElementById('response-message');
+                const responseError = document.getElementById('response-error');
+                responseMessage.innerText = "";
+                responseError.innerText = "";
+
+                if (res.ok) {
+                    responseMessage.innerText = res.statusText + ", Subscribed!";
+                } else {
+                    responseError.innerText = res.statusText;
+                }
             });
+            return false;
         };
     </script>
 
@@ -84,7 +97,10 @@
                 </div>
             </div>
         </form>
-
+        <div>
+            <span id="response-message" class="text-2xl w-full font-bold text-bufford py-4"></span>
+            <span id="response-error" class="text-2xl w-full font-bold text-red-700 py-4"></span>
+        </div>
     </div>
 </body>
 
