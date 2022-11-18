@@ -1,34 +1,91 @@
-<script>
-    const handleSubmit = async () => {
-        event.preventDefault();
-        const target = document.getElementById('form');
-        const name = document.getElementById('name')
-        const email = document.getElementById('email')
-        console.log(name, email)
-        const data = {
-            subscriberName: name.value,
-            subscriberEmail: email.value,
-        };
-        alert(JSON.stringify(data,null,2))
-        //call to the Netlify Function you created
-        return await fetch("/.netlify/functions/triggerSubscribeEmail", {
-            method: "POST",
-            body: JSON.stringify({
-                subscriberName: data.subscriberName,
-                subscriberEmail: data.subscriberEmail,
-                inviteeEmail: "tony@3alves.com",
-            }),
-        });
-    };
-</script>
-<h1>Hello Email World!</h1>
+<!DOCTYPE html>
+<html lang="en">
 
-<div className="subscribe-form-container">
-    <form id="form" onsubmit="handleSubmit()">
-        <label htmlFor="name">Name</label>
-        <input type="text" id="name" name="name" required />
-        <label htmlFor="email">Email</label>
-        <input type="text" id="email" name="email" required />
-        <button type="submit">Subscribe</button>
-    </form>
-</div>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bufford: '#373d67',
+                    }
+                }
+            }
+        }
+    </script>
+    <title>Email Test</title>
+</head>
+
+<body>
+    <script>
+        const handleSubmit = async () => {
+            event.preventDefault();
+            const target = document.getElementById('form');
+            const name = document.getElementById('name')
+            const email = document.getElementById('email')
+            console.log(name, email)
+            const data = {
+                subscriberName: name.value,
+                subscriberEmail: email.value,
+            };
+            alert(JSON.stringify(data, null, 2))
+            //call to the Netlify Function you created
+            return await fetch("/.netlify/functions/triggerSubscribeEmail", {
+                method: "POST",
+                body: JSON.stringify({
+                    subscriberName: data.subscriberName,
+                    subscriberEmail: data.subscriberEmail,
+                    inviteeEmail: "tony@3alves.com",
+                }),
+            });
+        };
+    </script>
+
+    <div class="content-center bg-gray-100 p-4">
+        <div class="text-3xl w-full font-bold text-bufford py-4">Hello Email World!</div>
+        <form id="form" onsubmit="handleSubmit()" class="w-full max-w-sm">
+            <div class="md:flex md:items-center mb-6">
+                <div class="md:w-1/3">
+                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="name">
+                        Name
+                    </label>
+                </div>
+                <div class="md:w-2/3">
+                    <input id="name"
+                        class="bg-gray-300 appearance-none border-2 border-gray-300 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
+                        type="text" placeholder="Enter Name" required>
+                </div>
+            </div>
+            <div class="md:flex md:items-center mb-6">
+                <div class="md:w-1/3">
+                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="email">
+                        Email
+                    </label>
+                </div>
+                <div class="md:w-2/3">
+                    <input
+                        class="bg-gray-300 appearance-none border-2 border-gray-300 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
+                        id="email" placeholder="you@example.com" required>
+                </div>
+            </div>
+            <div class="md:flex md:items-center">
+                <div class="md:w-1/3"></div>
+                <div class="md:w-2/3">
+                    <button
+                        class="shadow bg-amber-500 hover:bg-amber-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                        type="submit">
+                        Sign Up
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</body>
+
+</html>
