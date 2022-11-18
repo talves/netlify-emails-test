@@ -4,7 +4,7 @@ import fetch from "node-fetch";
 const handler: Handler = async function (event) {
   console.log("event.body:", event.body);
 
-  if (event.body === null || event.body==="") {
+  if (event.body === null || event.body===undefined) {
     return {
       statusCode: 400,
       body: JSON.stringify("Payload required"),
@@ -41,7 +41,7 @@ console.log("response:", response.ok, response.status, response.statusText, resp
     body: JSON.stringify("Subscribe email sent!"),
   } : {
     statusCode: 400,
-    body: JSON.stringify(`Error: ${response.statusText}`),
+    body: JSON.stringify(`Error: ${response.statusText} - ${responseText}`),
   };
 };
 
